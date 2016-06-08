@@ -7,7 +7,7 @@ module MkCalendar
   def self.new(arg = ARGV[0])
     arg ||= Time.now.strftime("%Y%m%d")
     ymd = MkCalendar::Argument.new(arg).get_ymd
-    return if ymd == []
+    return if ymd == ""
     return MkCalendar::Calendar.new(ymd)
   end
 end
