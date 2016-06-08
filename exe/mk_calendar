@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+
+require "mk_calendar"
+
+o = MkCalendar.new(ARGV)
+exit unless o
+o.calc
+str =  sprintf("%04d-%02d-%02d", o.year, o.month, o.day)
+str << " #{o.yobi}曜日"
+str << " #{o.holiday}" unless o.holiday == ""
+str << " #{o.jd}UTC(#{o.jd_jst}JST) #{o.kanshi} "
+str << sprintf("%04d-%02d-%02d", o.oc_year, o.oc_month, o.oc_day)
+str << "(閏)" if o.oc_leap == 1
+str << " #{o.rokuyo}"
+str << " #{o.sekki_24}" unless o.sekki_24 == ""
+str << " #{o.zassetsu}" unless o.zassetsu == ""
+str << " #{o.sekku}" unless o.sekku == ""
+str << " #{o.lambda_sun} #{o.lambda_moon} #{o.moonage}"
+puts str
+
+# Calculation for each
+#p o.year, o.month, o.day, o.jd, o.jd_jst
+#o.calc_holiday    ; puts o.holiday
+#o.calc_sekki_24   ; puts o.sekki_24
+#o.calc_zassetsu   ; puts o.zassetsu
+#o.calc_yobi       ; puts o.yobi
+#o.calc_kanshi     ; puts o.kanshi
+#o.calc_sekku      ; puts o.sekku
+#o.calc_lambda_sun ; puts o.lambda_sun
+#o.calc_lambda_moon; puts o.lambda_moon
+#o.calc_moonage    ; puts o.moonage
+#o.calc_oc         ; puts o.oc_year, o.oc_leap, o.oc_month, o.oc_day
+#o.calc_rokuyo     ; puts o.rokuyo
+
