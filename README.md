@@ -1,5 +1,25 @@
 # MkCalendar
 
+## Introduction
+
+This is the gem library which calculates calendar datas, including old-calendar.
+
+### Computable items
+
+julian day(utc), julian day(jst), holiday, sekki_24, zassetsu,  
+yobi, kanshi, sekku, lambda_sun, lambda_moon, moonage,  
+old-calendar(year, month, day, leap flag), rokuyo
+
+### Original Text
+
+[旧暦計算サンプルプログラム](http://www.vector.co.jp/soft/dos/personal/se016093.html)  
+Copyright (C) 1993,1994 by H.Takano
+
+### Remark
+
+However, the above program includes some problems for calculating the future  
+old-calendar datas. So, I have done some adjustments.
+
 ## Installation
 
 Add this line to your application's Gemfile:

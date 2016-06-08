@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["komasaru"]
   spec.email         = ["masaru@mk-mode.com"]
 
-  spec.summary       = %q{Calendar library.}
-  spec.description   = %q{MkCalendar is a calendar library.}
+  spec.summary       = %q{Calendar library including Japan's old-calendar.}
+  spec.description   = %q{MkCalendar is a calendar library including Japan's old-calendar.}
   spec.homepage      = "https://github.com/komasaru/mk_calendar"
   spec.license       = "MIT"
 
