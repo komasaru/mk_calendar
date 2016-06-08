@@ -2,7 +2,7 @@
 
 require "mk_calendar"
 
-o = MkCalendar.new(ARGV)
+o = MkCalendar.new(ARGV[0])
 exit unless o
 o.calc
 str =  sprintf("%04d-%02d-%02d", o.year, o.month, o.day)

@@ -2,8 +2,8 @@ require "spec_helper"
 require "date"
 
 describe MkCalendar::Argument do
-  context "#self.new([\"20160605\"])" do
-    let(:a) { MkCalendar::Argument.new(["20160605"]) }
+  context "#self.new(\"20160605\")" do
+    let(:a) { MkCalendar::Argument.new("20160605") }
 
     context "object" do
       it { expect(a).to be_an_instance_of(MkCalendar::Argument) }
@@ -15,22 +15,8 @@ describe MkCalendar::Argument do
     end
   end
 
-  context "#self.new([])" do
-    let(:a) { MkCalendar::Argument.new([]) }
-
-    context "object" do
-      it { expect(a).to be_an_instance_of(MkCalendar::Argument) }
-    end
-
-    context "get_ymd" do
-      let(:tm) { Time.now }
-      subject { a.get_ymd }
-      it { expect(subject).to match([tm.year, tm.month, tm.day]) }
-    end
-  end
-
-  context "#self.new([\"201606050\"])" do
-    let(:a) { MkCalendar::Argument.new(["201606050"]) }
+  context "#self.new(\"201606050\")" do
+    let(:a) { MkCalendar::Argument.new("201606050") }
 
     context "object" do
       it { expect(a).to be_an_instance_of(MkCalendar::Argument) }
@@ -42,8 +28,8 @@ describe MkCalendar::Argument do
     end
   end
 
-  context "#self.new([\"20160631\"])" do
-    let(:a) { MkCalendar::Argument.new(["20160631"]) }
+  context "#self.new(\"20160631\")" do
+    let(:a) { MkCalendar::Argument.new("20160631") }
 
     context "object" do
       it { expect(a).to be_an_instance_of(MkCalendar::Argument) }
