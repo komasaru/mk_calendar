@@ -1,3 +1,5 @@
+require 'date'
+
 module MkCalendar
   class Argument
     def initialize(arg)
