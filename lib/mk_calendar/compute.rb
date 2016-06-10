@@ -60,7 +60,6 @@ module MkCalendar
       0.upto(holiday_0.length - 2) do |i|
         if holiday_0[i][3] + 2 == holiday_0[i + 1][3]
           jd = holiday_0[i][3] + 1
-          #yobi = (holiday_0[i][4] + 1) == 7 ? 0 : (holiday_0[i][4] + 1)
           yobi = Const::YOBI[Const::YOBI.index(holiday_0[i][4]) + 1]
           wk_ary = Array.new
           wk_ary << jd2ymd(jd)[1]
@@ -76,9 +75,8 @@ module MkCalendar
       # ( 「国民の祝日」が日曜日に当たるときは、
       #   その日後においてその日に最も近い「国民の祝日」でない日 )
       0.upto(holiday_0.length - 1) do |i|
-        if holiday_0[i][4] == 0
+        if holiday_0[i][4] == "日"
           next_jd = holiday_0[i][3] + 1
-          #next_yobi = (holiday_0[i][4] + 1) == 7 ? 0 : (holiday_0[i][4] + 1)
           next_yobi = Const::YOBI[Const::YOBI.index(holiday_0[i][4]) + 1]
           if i == holiday_0.length - 1
             wk_ary = Array.new
@@ -94,13 +92,13 @@ module MkCalendar
               if i + plus_day < holiday_0.length
                 if next_jd == holiday_0[i + plus_day][3]
                   next_jd += 1
-                  next_yobi = (next_yobi + 1) == 7 ? 0 : (next_yobi + 1)
+                  next_yobi = next_yobi == "土" ? "日" : Const::YOBI[Const::YOBI.index(next_yobi) + 1]
                   plus_day += 1
                 else
                   flg_furikae = 1
                   wk_ary = Array.new
-                  wk_ary << jd2(next_jd)[1]
-                  wk_ary << jd2(next_jd)[2]
+                  wk_ary << jd2ymd(next_jd)[1]
+                  wk_ary << jd2ymd(next_jd)[2]
                   wk_ary << 91
                   wk_ary << next_jd
                   wk_ary << next_yobi

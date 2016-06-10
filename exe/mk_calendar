@@ -27,6 +27,6 @@ str << " #{o.oc[4]}"
 str << " #{o.sekki_24}" unless o.sekki_24 == ""
 str << " #{o.zassetsu}" unless o.zassetsu == ""
 str << " #{o.sekku}" unless o.sekku == ""
-str << " #{o.lambda_sun} #{o.lambda_moon} #{o.moonage} #{o.moonphase}"
+str << " #{o.lambda_sun} #{o.lambda_moon} #{o.moonage}"
 puts str
 

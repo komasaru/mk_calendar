@@ -36,6 +36,18 @@ describe MkCalendar::Calendar do
     it { expect(subject).to eq "憲法記念日" }
   end
 
+  context "#holiday (case: holiday(振替休日))" do
+    let(:c) { MkCalendar::Calendar.new([2016, 3, 21]) }
+    subject { c.holiday }
+    it { expect(subject).to eq "振替休日" }
+  end
+
+  context "#holiday (case: holiday(国民の休日))" do
+    let(:c) { MkCalendar::Calendar.new([2009, 9, 22]) }
+    subject { c.holiday }
+    it { expect(subject).to eq "国民の休日" }
+  end
+
   context "#holiday (case: non-holiday)" do
     let(:c) { MkCalendar::Calendar.new([2016, 6, 5]) }
     subject { c.holiday }
