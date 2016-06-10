@@ -111,13 +111,13 @@ describe MkCalendar::Calendar do
   context "#lambda_sun" do
     let(:c) { MkCalendar::Calendar.new([2016, 6, 5]) }
     subject { c.lambda_sun }
-    it { expect(subject).to be_within(1.0e-10).of(74.4085130901) }
+    it { expect(subject).to be_within(1.0e-4).of(74.4085) }
   end
 
   context "#lambda_moon" do
     let(:c) { MkCalendar::Calendar.new([2016, 6, 5]) }
     subject { c.lambda_moon }
-    it { expect(subject).to be_within(1.0e-10).of(67.4513755710) }
+    it { expect(subject).to be_within(1.0e-4).of(67.4513) }
   end
 
   context "#moonage" do

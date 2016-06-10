@@ -331,11 +331,9 @@ module MkCalendar
     # @return: lambda
     #=========================================================================
     def compute_lambda_sun(jd)
-      year, month, day, hour, min, sec = jd2ymd(jd - 0.5)
-      t = (hour * 3600 + min * 60 + sec) / 86400.0
+      year, month, day, hour, min, sec = jd2ymd(jd - Const::JST_D)
       dt = compute_dt(year, month, day)  # deltaT
-      dp = gc2j2000(year, month, day)  # 2000年1月1日力学時正午からの経過日数(日)計算
-      jy = (t + dp + dt / 86400.0) / 365.25  # Julian Year
+      jy = (jd - Const::JST_D + dt / 86400.0 - 2451545.0) / 365.25  # Julian Year
       rm  = 0.0003 * Math.sin(Const::K * norm_angle(329.7  +   44.43  * jy))
       rm += 0.0003 * Math.sin(Const::K * norm_angle(352.5  + 1079.97  * jy))
       rm += 0.0004 * Math.sin(Const::K * norm_angle( 21.1  +  720.02  * jy))
@@ -366,11 +364,9 @@ module MkCalendar
     # @return: lambda
     #=========================================================================
     def compute_lambda_moon(jd)
-      year, month, day, hour, min, sec = jd2ymd(jd - 0.5)
-      t = (hour * 60 * 60 + min * 60 + sec) / 86400.0
+      year, month, day, hour, min, sec = jd2ymd(jd - Const::JST_D)
       dt = compute_dt(year, month, day)  # deltaT
-      dp = gc2j2000(year, month, day)  # 2000年1月1日力学時正午からの経過日数(日)計算
-      jy = (t + dp + dt / 86400.0) / 365.25  # Julian Year
+      jy = (jd - Const::JST_D + dt / 86400.0 - 2451545.0) / 365.25  # Julian Year
       am  = 0.0006 * Math.sin(Const::K * norm_angle( 54.0 + 19.3  * jy))
       am += 0.0006 * Math.sin(Const::K * norm_angle( 71.0 +  0.2  * jy))
       am += 0.0020 * Math.sin(Const::K * norm_angle( 55.0 + 19.34 * jy))
@@ -992,27 +988,6 @@ module MkCalendar
         dt  = -20 + 32 * t ** 2
       end
       return dt
-    end
-
-    #=========================================================================
-    # 2000年1月1日力学時正午からの経過日数の計算
-    #
-    # @param:  year
-    # @param:  month
-    # @param:  day
-    # @return: dp (= day progress)
-    #=========================================================================
-    def gc2j2000(year, month, day)
-      year -= 2000
-      # 1月,2月は前年の13月,14月とする
-      if month < 3
-        year  -= 1
-        month += 12
-      end
-      dp  = 365 * year + 30 * month + day - 33.5 - Const::JST_D
-      dp += (3 * (month + 1) / 5.0).truncate
-      dp += (year / 4.0).truncate
-      return dp
     end
 
     #=========================================================================

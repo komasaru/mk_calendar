@@ -58,11 +58,6 @@ describe MkCalendar::Compute do
     it { expect(subject).to be_within(1.0e-3).of(5710.045) }
   end
 
-  context "#gc2j2000" do
-    subject { c.gc2j2000(2016, 6, 5) }
-    it { expect(subject).to be_within(1.0e-3).of(5999.125) }
-  end
-
   context "#compute_holiday (1)" do
     subject { c.compute_holiday(2016, 5, 3) }
     it { expect(subject).to eq "憲法記念日" }
@@ -155,22 +150,22 @@ describe MkCalendar::Compute do
 
   context "#compute_lambda_sun (1)" do
     subject { c.compute_lambda_sun(2457544.5) }  # 2016-06-05
-    it { expect(subject).to be_within(1.0e-10).of(74.4085130901) }
+    it { expect(subject).to be_within(1.0e-4).of(74.4085) }
   end
 
   context "#compute_lambda_sun (2)" do
     subject { c.compute_lambda_sun(2457547.5) }  # 2016-06-08
-    it { expect(subject).to be_within(1.0e-10).of(77.2804999540) }
+    it { expect(subject).to be_within(1.0e-4).of(77.2805) }
   end
 
   context "#compute_lambda_moon (1)" do
     subject { c.compute_lambda_moon(2457544.5) }  # 2016-06-05
-    it { expect(subject).to be_within(1.0e-10).of(67.4513755710) }
+    it { expect(subject).to be_within(1.0e-4).of(67.4514) }
   end
 
   context "#compute_lambda_moon (2)" do
     subject { c.compute_lambda_moon(2457547.5) }  # 2016-06-08
-    it { expect(subject).to be_within(1.0e-10).of(110.9388074049) }
+    it { expect(subject).to be_within(1.0e-4).of(110.9388) }
   end
 
   context "#compute_moonage (1)" do
