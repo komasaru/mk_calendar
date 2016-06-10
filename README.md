@@ -52,37 +52,17 @@ obj = MkCalendar.new("20160608")
 ### Calculation
 
 ``` ruby
-obj.calc
-
-# Otherwise
-obj.calc_holiday
-obj.calc_sekki_24
-obj.calc_zassetsu
-obj.calc_yobi
-obj.calc_kanshi
-obj.calc_sekku
-obj.calc_lambda_sun
-obj.calc_lambda_moon
-obj.calc_moonage
-obj.calc_oc
-obj.calc_rokuyo
-```
-
-### Getting values
-
-``` ruby
-puts o.year, o.month, o.day, o.jd, o.jd_jst
-puts o.holiday
-puts o.sekki_24
-puts o.zassetsu
-puts o.yobi
-puts o.kanshi
-puts o.sekku
-puts o.lambda_sun
-puts o.lambda_moon
-puts o.moonage
-puts o.oc_year, o.oc_leap, o.oc_month, o.oc_day
-puts o.rokuyo
+p o.year, o.month, o.day, o.jd, o.jd_jst
+p o.holiday
+p o.sekki_24
+p o.zassetsu
+p o.yobi
+p o.kanshi
+p o.sekku
+p o.lambda_sun
+p o.lambda_moon
+p o.moonage
+p o.oc
 ```
 
 ## Development
