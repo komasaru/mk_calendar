@@ -62,7 +62,7 @@ p o.sekku
 p o.lambda_sun
 p o.lambda_moon
 p o.moonage
-p o.oc
+p o.oc  # <= [year, leap_flag, month, day]
 ```
 
 ## Development
