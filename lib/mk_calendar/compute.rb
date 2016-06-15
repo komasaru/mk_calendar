@@ -894,7 +894,7 @@ module MkCalendar
              * t) * t) * t
       when 1961 <= year && year < 1986
         case
-        when ym < sprintf("%04d-%02d-%02d", 1972, 1, 1)
+        when ym < sprintf("%04d-%02d", 1972, 1)
           t = y - 1975
           dt = 45.45      + \
               ( 1.067     + \
