@@ -809,13 +809,14 @@ module MkCalendar
     # @return: dt
     #=========================================================================
     def compute_dt(year, month, day)
-      ymd = sprintf("%04d-%02d-%02d", year, month, day)
+      ym = sprintf("%04d-%02d", year, month)
+      y = year + (month - 0.5) / 12
       case
       when year < -500
-        t = (year-1820) / 100.0
+        t = (y - 1820) / 100.0
         dt  = -20 + 32 * t ** 2
       when -500 <= year && year < 500
-        t = year / 100.0
+        t = y / 100.0
         dt  = 10583.6
              (-1014.41        + \
              (   33.78311     + \
@@ -825,7 +826,7 @@ module MkCalendar
              (    0.0090316521) \
              * t) * t) * t) * t) * t) * t
       when 500 <= year && year < 1600
-        t = (year - 1000) / 100.0
+        t = (y - 1000) / 100.0
         dt  = 1574.2         + \
              (-556.01        + \
              (  71.23472     + \
@@ -835,14 +836,14 @@ module MkCalendar
              (   0.0083572073) \
              * t) * t) * t) * t) * t) * t
       when 1600 <= year && year < 1700
-        t = year - 1600
+        t = y - 1600
         dt  = 120           + \
              ( -0.9808      + \
              ( -0.01532     + \
              (  1.0 / 7129.0) \
              * t) * t) * t
       when 1700 <= year && year < 1800
-        t = year - 1700
+        t = y - 1700
         dt  =  8.83           + \
              ( 0.1603         + \
              (-0.0059285      + \
@@ -850,7 +851,7 @@ module MkCalendar
              (-1.0 / 1174000.0) \
              * t) * t) * t) * t
       when 1800 <= year && year < 1860
-        t = year - 1800
+        t = y - 1800
         dt  = 13.72          + \
              (-0.332447      + \
              ( 0.0068612     + \
@@ -861,7 +862,7 @@ module MkCalendar
              ( 0.000000000875) \
              * t) * t) * t) * t) * t) * t) * t
       when 1860 <= year && year < 1900
-        t = year - 1860
+        t = y - 1860
         dt  =  7.62          + \
              ( 0.5737        + \
              (-0.251754      + \
@@ -870,7 +871,7 @@ module MkCalendar
              ( 1.0 / 233174.0) \
              * t) * t) * t) * t) * t
       when 1900 <= year && year < 1920
-        t = year - 1900
+        t = y - 1900
         dt  = -2.79      + \
              ( 1.494119  + \
              (-0.0598939 + \
@@ -878,14 +879,14 @@ module MkCalendar
              (-0.000197  ) \
              * t) * t) * t) * t
       when 1920 <= year && year < 1941
-        t = year - 1920
+        t = y - 1920
         dt  = 21.20     + \
              ( 0.84493  + \
              (-0.076100 + \
              ( 0.0020936) \
              * t) * t) * t
       when 1941 <= year && year < 1961
-        t = year - 1950
+        t = y - 1950
         dt  = 29.07      + \
              ( 0.407     + \
              (-1 / 233.0 + \
@@ -893,44 +894,31 @@ module MkCalendar
              * t) * t) * t
       when 1961 <= year && year < 1986
         case
-        when ymd < sprintf("%04d-%02d-%02d", 1972, 1, 1)
-          t = year - 1975
+        when ym < sprintf("%04d-%02d-%02d", 1972, 1, 1)
+          t = y - 1975
           dt = 45.45      + \
               ( 1.067     + \
               (-1 / 260.0 + \
               (-1 / 718.0)  \
               * t) * t) * t
-        when ymd < sprintf("%04d-%02d-%02d", 1972, 7, 1)
-          dt = 32.184 + 10
-        when ymd < sprintf("%04d-%02d-%02d", 1973, 1, 1)
-          dt = 32.184 + 11
-        when ymd < sprintf("%04d-%02d-%02d", 1974, 1, 1)
-          dt = 32.184 + 12
-        when ymd < sprintf("%04d-%02d-%02d", 1975, 1, 1)
-          dt = 32.184 + 13
-        when ymd < sprintf("%04d-%02d-%02d", 1976, 1, 1)
-          dt = 32.184 + 14
-        when ymd < sprintf("%04d-%02d-%02d", 1977, 1, 1)
-          dt = 32.184 + 15
-        when ymd < sprintf("%04d-%02d-%02d", 1978, 1, 1)
-          dt = 32.184 + 16
-        when ymd < sprintf("%04d-%02d-%02d", 1979, 1, 1)
-          dt = 32.184 + 17
-        when ymd < sprintf("%04d-%02d-%02d", 1980, 1, 1)
-          dt = 32.184 + 18
-        when ymd < sprintf("%04d-%02d-%02d", 1981, 7, 1)
-          dt = 32.184 + 19
-        when ymd < sprintf("%04d-%02d-%02d", 1982, 7, 1)
-          dt = 32.184 + 20
-        when ymd < sprintf("%04d-%02d-%02d", 1983, 7, 1)
-          dt = 32.184 + 21
-        when ymd < sprintf("%04d-%02d-%02d", 1985, 7, 1)
-          dt = 32.184 + 22
-        when ymd < sprintf("%04d-%02d-%02d", 1988, 1, 1)
-          dt = 32.184 + 23
+        # NICT Ver.
+        when ym < sprintf("%04d-%02d", 1972, 7); dt = Const::TT_TAI + 10
+        when ym < sprintf("%04d-%02d", 1973, 1); dt = Const::TT_TAI + 11
+        when ym < sprintf("%04d-%02d", 1974, 1); dt = Const::TT_TAI + 12
+        when ym < sprintf("%04d-%02d", 1975, 1); dt = Const::TT_TAI + 13
+        when ym < sprintf("%04d-%02d", 1976, 1); dt = Const::TT_TAI + 14
+        when ym < sprintf("%04d-%02d", 1977, 1); dt = Const::TT_TAI + 15
+        when ym < sprintf("%04d-%02d", 1978, 1); dt = Const::TT_TAI + 16
+        when ym < sprintf("%04d-%02d", 1979, 1); dt = Const::TT_TAI + 17
+        when ym < sprintf("%04d-%02d", 1980, 1); dt = Const::TT_TAI + 18
+        when ym < sprintf("%04d-%02d", 1981, 7); dt = Const::TT_TAI + 19
+        when ym < sprintf("%04d-%02d", 1982, 7); dt = Const::TT_TAI + 20
+        when ym < sprintf("%04d-%02d", 1983, 7); dt = Const::TT_TAI + 21
+        when ym < sprintf("%04d-%02d", 1985, 7); dt = Const::TT_TAI + 22
+        when ym < sprintf("%04d-%02d", 1988, 1); dt = Const::TT_TAI + 23
         end
       when 1986 <= year && year < 2005
-        # t = year - 2000
+        #t = y - 2000
         #dt  = 63.86         + \
         #     ( 0.3345       + \
         #     (-0.060374     + \
@@ -938,42 +926,28 @@ module MkCalendar
         #     ( 0.000651814  + \
         #     ( 0.00002373599) \
         #     * t) * t) * t) * t) * t
+        # NICT Ver.
         case
-        when ymd < sprintf("%04d-%02d-%02d", 1988, 1, 1)
-          dt = 32.184 + 23
-        when ymd < sprintf("%04d-%02d-%02d", 1990, 1, 1)
-          dt = 32.184 + 24
-        when ymd < sprintf("%04d-%02d-%02d", 1991, 1, 1)
-          dt = 32.184 + 25
-        when ymd < sprintf("%04d-%02d-%02d", 1992, 7, 1)
-          dt = 32.184 + 26
-        when ymd < sprintf("%04d-%02d-%02d", 1993, 7, 1)
-          dt = 32.184 + 27
-        when ymd < sprintf("%04d-%02d-%02d", 1994, 7, 1)
-          dt = 32.184 + 28
-        when ymd < sprintf("%04d-%02d-%02d", 1996, 1, 1)
-          dt = 32.184 + 29
-        when ymd < sprintf("%04d-%02d-%02d", 1997, 7, 1)
-          dt = 32.184 + 30
-        when ymd < sprintf("%04d-%02d-%02d", 1999, 1, 1)
-          dt = 32.184 + 31
-        when ymd < sprintf("%04d-%02d-%02d", 2006, 1, 1)
-          dt = 32.184 + 32
+        when ym < sprintf("%04d-%02d", 1988, 1); dt = Const::TT_TAI + 23
+        when ym < sprintf("%04d-%02d", 1990, 1); dt = Const::TT_TAI + 24
+        when ym < sprintf("%04d-%02d", 1991, 1); dt = Const::TT_TAI + 25
+        when ym < sprintf("%04d-%02d", 1992, 7); dt = Const::TT_TAI + 26
+        when ym < sprintf("%04d-%02d", 1993, 7); dt = Const::TT_TAI + 27
+        when ym < sprintf("%04d-%02d", 1994, 7); dt = Const::TT_TAI + 28
+        when ym < sprintf("%04d-%02d", 1996, 1); dt = Const::TT_TAI + 29
+        when ym < sprintf("%04d-%02d", 1997, 7); dt = Const::TT_TAI + 30
+        when ym < sprintf("%04d-%02d", 1999, 1); dt = Const::TT_TAI + 31
+        when ym < sprintf("%04d-%02d", 2006, 1); dt = Const::TT_TAI + 32
         end
       when 2005 <= year && year < 2050
         case
-        when ymd < sprintf("%04d-%02d-%02d", 2006, 1, 1)
-          dt = 32.184 + 32
-        when ymd < sprintf("%04d-%02d-%02d", 2009, 1, 1)
-          dt = 32.184 + 33
-        when ymd < sprintf("%04d-%02d-%02d", 2012, 7, 1)
-          dt = 32.184 + 34
-        when ymd < sprintf("%04d-%02d-%02d", 2015, 7, 1)
-          dt = 32.184 + 35
-        when ymd < sprintf("%04d-%02d-%02d", 2017, 7, 1)  # <= 第27回うるう秒実施までの暫定措置
-          dt = 32.184 + 36
+        when ym < sprintf("%04d-%02d", 2006, 1); dt = Const::TT_TAI + 32
+        when ym < sprintf("%04d-%02d", 2009, 1); dt = Const::TT_TAI + 33
+        when ym < sprintf("%04d-%02d", 2012, 7); dt = Const::TT_TAI + 34
+        when ym < sprintf("%04d-%02d", 2015, 7); dt = Const::TT_TAI + 35
+        when ym < sprintf("%04d-%02d", 2018, 1); dt = Const::TT_TAI + 36  # <= 第27回うるう秒実施までの暫定措置
         else
-          t = year - 2000
+          t = y - 2000
           dt  = 62.92    + \
                ( 0.32217 + \
                ( 0.005589) \
@@ -981,10 +955,10 @@ module MkCalendar
         end
       when 2050 <= year && year <= 2150
         dt  = -20 \
-            + 32 * ((year - 1820) / 100.0) ** 2
-            - 0.5628 * (2150 - year)
+            + 32 * ((y - 1820) / 100.0) ** 2
+            - 0.5628 * (2150 - y)
       when 2150 < year
-        t = (year - 1820) / 100.0
+        t = (y - 1820) / 100.0
         dt  = -20 + 32 * t ** 2
       end
       return dt

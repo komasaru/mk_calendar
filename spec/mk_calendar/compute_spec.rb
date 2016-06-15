@@ -45,17 +45,17 @@ describe MkCalendar::Compute do
 
   context "#compute_dt (case: A.D.2030)" do
     subject { c.compute_dt(2030, 5, 21) }
-    it { expect(subject).to be_within(1.0e-3).of(77.615) }
+    it { expect(subject).to be_within(1.0e-3).of(77.863) }
   end
 
   context "#compute_dt (case: A.D.1952)" do
     subject { c.compute_dt(1952, 6, 22) }
-    it { expect(subject).to be_within(1.0e-3).of(29.870) }
+    it { expect(subject).to be_within(1.0e-3).of(30.050) }
   end
 
   context "#compute_dt (case: A.D.500)" do
     subject { c.compute_dt(500, 7, 25) }
-    it { expect(subject).to be_within(1.0e-3).of(5710.045) }
+    it { expect(subject).to be_within(1.0e-3).of(5704.674) }
   end
 
   context "#compute_holiday (1)" do
