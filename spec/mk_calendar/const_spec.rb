@@ -36,6 +36,10 @@ describe MkCalendar::Const do
     end
   end
 
+  context "TT_TAI" do
+    it { expect(MkCalendar::Const::TT_TAI).to eq 32.184 }
+  end
+
   context "YOBI" do
     it do
       expect(MkCalendar::Const::YOBI).to \
