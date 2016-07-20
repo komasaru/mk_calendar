@@ -945,7 +945,8 @@ module MkCalendar
         when ym < sprintf("%04d-%02d", 2009, 1); dt = Const::TT_TAI + 33
         when ym < sprintf("%04d-%02d", 2012, 7); dt = Const::TT_TAI + 34
         when ym < sprintf("%04d-%02d", 2015, 7); dt = Const::TT_TAI + 35
-        when ym < sprintf("%04d-%02d", 2018, 1); dt = Const::TT_TAI + 36  # <= 第27回うるう秒実施までの暫定措置
+        when ym < sprintf("%04d-%02d", 2017, 1); dt = Const::TT_TAI + 36
+        when ym < sprintf("%04d-%02d", 2019, 1); dt = Const::TT_TAI + 37  # <= 第28回うるう秒実施までの暫定措置
         else
           t = y - 2000
           dt  = 62.92    + \
