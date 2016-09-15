@@ -133,8 +133,8 @@ module MkCalendar
     # @return: sekki_24 (二十四節気の文字列)
     #=========================================================================
     def compute_sekki_24(jd)
-      lsun_today     = compute_lambda_sun(jd)
-      lsun_tomorrow  = compute_lambda_sun(jd + 1)
+      lsun_today     = compute_lambda(jd)
+      lsun_tomorrow  = compute_lambda(jd + 1)
       lsun_today0    = 15 * (lsun_today / 15.0).truncate
       lsun_tomorrow0 = 15 * (lsun_tomorrow / 15.0).truncate
       return lsun_today0 == lsun_tomorrow0 ? "" : Const::SEKKI_24[lsun_tomorrow0 / 15]
@@ -150,17 +150,17 @@ module MkCalendar
       zassetsu = Array.new
 
       # 計算対象日の太陽の黄経
-      lsun_today = compute_lambda_sun(jd)
+      lsun_today = compute_lambda(jd)
       # 計算対象日の翌日の太陽の黄経
-      lsun_tomorrow = compute_lambda_sun(jd + 1)
+      lsun_tomorrow = compute_lambda(jd + 1)
       # 計算対象日の5日前の太陽の黄経(社日計算用)
-      lsun_before_5 = compute_lambda_sun(jd - 5)
+      lsun_before_5 = compute_lambda(jd - 5)
       # 計算対象日の4日前の太陽の黄経(社日計算用)
-      lsun_before_4 = compute_lambda_sun(jd - 4)
+      lsun_before_4 = compute_lambda(jd - 4)
       # 計算対象日の5日後の太陽の黄経(社日計算用)
-      lsun_after_5  = compute_lambda_sun(jd + 5)
+      lsun_after_5  = compute_lambda(jd + 5)
       # 計算対象日の6日後の太陽の黄経(社日計算用)
-      lsun_after_6  = compute_lambda_sun(jd + 6)
+      lsun_after_6  = compute_lambda(jd + 6)
       # 太陽の黄経の整数部分( 土用, 入梅, 半夏生 計算用 )
       lsun_today0    = lsun_today.truncate
       lsun_tomorrow0 = lsun_tomorrow.truncate
@@ -332,7 +332,7 @@ module MkCalendar
     # @param:  jd (ユリウス日(JST))
     # @return: lambda
     #=========================================================================
-    def compute_lambda_sun(jd)
+    def compute_lambda(jd)
       year, month, day, hour, min, sec = jd2ymd(jd - Const::JST_D)
       dt = compute_dt(year, month, day)  # deltaT
       jy = (jd - Const::JST_D + dt / 86400.0 - 2451545.0) / 365.25  # Julian Year
@@ -365,7 +365,7 @@ module MkCalendar
     # @param:  jd (ユリウス日(JST))
     # @return: lambda
     #=========================================================================
-    def compute_lambda_moon(jd)
+    def compute_alpha(jd)
       year, month, day, hour, min, sec = jd2ymd(jd - Const::JST_D)
       dt = compute_dt(year, month, day)  # deltaT
       jy = (jd - Const::JST_D + dt / 86400.0 - 2451545.0) / 365.25  # Julian Year
@@ -669,7 +669,7 @@ module MkCalendar
       tm2 -= Const::JST_D
 
       # 直前の二分二至の黄経 λsun0 を求める
-      rm_sun  = compute_lambda_sun(jd + 0.5)
+      rm_sun  = compute_lambda(jd + 0.5)
       rm_sun0 = kbn * (rm_sun / kbn.to_f).truncate
 
       # 繰り返し計算によって直前の二分二至の時刻を計算する
@@ -678,7 +678,7 @@ module MkCalendar
       while (delta_t1 + delta_t2).abs > (1.0 / 86400.0)
         # λsun を計算
         t = tm1 + tm2 + Const::JST_D + 0.5
-        rm_sun = compute_lambda_sun(t)
+        rm_sun = compute_lambda(t)
 
         # 黄経差 Δλ＝λsun －λsun0
         delta_rm = rm_sun - rm_sun0
@@ -751,8 +751,8 @@ module MkCalendar
       while (delta_t1 + delta_t2).abs > (1.0 / 86400.0)
         # 太陽の黄経λsun ,月の黄経λmoon を計算
         t = tm1 + tm2 + Const::JST_D + 0.5
-        rm_sun  = compute_lambda_sun(t)
-        rm_moon = compute_lambda_moon(t)
+        rm_sun  = compute_lambda(t)
+        rm_moon = compute_alpha(t)
         # 月と太陽の黄経差Δλ
         # Δλ＝λmoon－λsun
         delta_rm = rm_moon - rm_sun

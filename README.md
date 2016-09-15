@@ -7,7 +7,7 @@ This is the gem library which calculates calendar datas, including old-calendar.
 ### Computable items
 
 julian day(utc), julian day(jst), holiday, sekki_24, zassetsu,  
-yobi, kanshi, sekku, lambda_sun, lambda_moon, moonage,  
+yobi, kanshi, sekku, lambda(sun), alpha(moon), moonage,  
 old-calendar(year, month, day, leap flag), rokuyo
 
 ### Original Text
@@ -40,30 +40,26 @@ Or install it yourself as:
 
 ### Instantiation
 
-``` ruby
-require 'mk_calendar'
-
-obj = MkCalendar.new
-
-# Otherwise
-obj = MkCalendar.new("20160608")
-```
+    require 'mk_calendar'
+    
+    obj = MkCalendar.new
+    
+    # Otherwise
+    obj = MkCalendar.new("20160608")
 
 ### Calculation
 
-``` ruby
-p o.year, o.month, o.day, o.jd, o.jd_jst
-p o.holiday
-p o.sekki_24
-p o.zassetsu
-p o.yobi
-p o.kanshi
-p o.sekku
-p o.lambda_sun
-p o.lambda_moon
-p o.moonage
-p o.oc  # <= [year, leap_flag, month, day]
-```
+    p o.year, o.month, o.day, o.jd, o.jd_jst
+    p o.holiday
+    p o.sekki_24
+    p o.zassetsu
+    p o.yobi
+    p o.kanshi
+    p o.sekku
+    p o.lambda
+    p o.alpha
+    p o.moonage
+    p o.oc  # <= [year, leap_flag, month, day]
 
 ## Development
 

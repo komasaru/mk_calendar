@@ -17,16 +17,17 @@ exit unless o
 #p o.moonage
 #p o.oc
 
+oc = o.oc
 str =  sprintf("%04d-%02d-%02d", o.year, o.month, o.day)
 str << " #{o.yobi}曜日"
 str << " #{o.holiday}" unless o.holiday == ""
 str << " #{o.jd}UTC(#{o.jd_jst}JST) #{o.kanshi} "
-str << sprintf("%04d-%02d-%02d", o.oc[0], o.oc[2], o.oc[3])
-str << "(閏)" if o.oc[1] == 1
-str << " #{o.oc[4]}"
+str << sprintf("%04d-%02d-%02d", oc[0], oc[2], oc[3])
+str << "(閏)" if oc[1] == 1
+str << " #{oc[4]}"
 str << " #{o.sekki_24}" unless o.sekki_24 == ""
 str << " #{o.zassetsu}" unless o.zassetsu == ""
 str << " #{o.sekku}" unless o.sekku == ""
-str << " #{o.lambda_sun} #{o.lambda_moon} #{o.moonage}"
+str << " #{o.lambda} #{o.alpha} #{o.moonage}"
 puts str
 
