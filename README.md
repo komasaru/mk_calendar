@@ -4,6 +4,8 @@
 
 This is the gem library which calculates calendar datas, including old-calendar.
 
+**当リポジトリは更新停止。（2018年11月4日）**
+
 ### Computable items
 
 julian day(utc), julian day(jst), holiday, sekki_24, zassetsu,  
